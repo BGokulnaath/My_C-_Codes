@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+
+int ceiling(int array[], int lb, int ub, int x);
+main()
+{
+	int n,i,x,y;
+	cout<<"Enter the number of elements you want in your array: ";
+	cin>>n;
+	int array[n];
+	for(i=0;i<n;i++)
+	{
+		cin>>array[i];
+	}
+	cout<<"Enter the number, whose ceiling you would link to find: ";
+	cin>>x;
+	y=ceiling(array,0,n-1,x);
+	if(y>=0)
+	cout<<"Ceiling of "<<x<<" is "<<array[y]<<endl;
+	else
+	cout<<"Ceiling not found "<<endl;
+}
+int ceiling(int array[], int lb, int ub, int x)
+{
+	int middle;
+	if(array[lb]>=x)
+	return lb;
+	if(x>array[ub])
+	return -1;
+	middle=(lb+ub)/2;
+	if(array[middle]==x)
+	return middle;
+	else if(array[middle]<x)
+	{
+		if(middle+1<=ub && array[middle+1]>=x)
+		return middle;
+		else
+		return ceiling(array,middle+1,ub,x);
+	}
+	else
+	{
+		if(middle-1>=lb && array[middle-1]<x)
+		return middle;
+		else
+		return ceiling(array,lb,middle-1,x);
+	}
+}
